@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 
 module.exports = (env, options) => {
@@ -13,12 +15,12 @@ module.exports = (env, options) => {
     return {
         entry: "./src/index.tsx",
         output: {
-            filename: "bundle.js",
+            filename: "[name]_[chunkhash].js",
             path: __dirname + "/dist"
         },
 
         // Enable sourcemaps for debugging webpack's output.
-        devtool: "source-map",
+        devtool: this.isProduction ? "source-map" : "inline-source-map",
 
         resolve: {
             // Add '.ts' and '.tsx' as resolvable extensions.
@@ -30,7 +32,7 @@ module.exports = (env, options) => {
                 // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
                 {
                     test: /\.tsx?$/,
-                    loader: "awesome-typescript-loader"
+                    loader: "ts-loader"
                 },
                 {
                     test: /\.html$/,
@@ -62,7 +64,35 @@ module.exports = (env, options) => {
             // "react-dom": "ReactDOM"
         },
 
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
+                },
+                maxSize: 250000,
+                name: true
+            }
+        },
+        performance: {
+            maxEntrypointSize: 500000,
+
+            assetFilter: function (assetFilename) {
+                // Skip vendors for size warnings.
+                return !assetFilename.startsWith("vendors") && assetFilename.endsWith('.js');
+            }
+        },
         plugins: [
+            new BundleAnalyzerPlugin({
+                analyzerMode: "static",
+                reportFilename: "webpackReport.html",
+                generateStatsFile: true,
+                statsFilename: "webpackBuildStats.json",
+                openAnalyzer: false
+            }),
             new HtmlWebPackPlugin({
                 template: "./src/index.html",
                 filename: "./index.html"
