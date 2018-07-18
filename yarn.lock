@@ -2,6 +2,23 @@
 # yarn lockfile v1
 
 
+"@types/node@*":
+  version "10.5.2"
+  resolved "https://registry.npmjs.org/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
+
+"@types/react-dom@^16.0.6":
+  version "16.0.6"
+  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.0.6.tgz#f1a65a4e7be8ed5d123f8b3b9eacc913e35a1a3c"
+  dependencies:
+    "@types/node" "*"
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.4.6":
+  version "16.4.6"
+  resolved "https://registry.npmjs.org/@types/react/-/react-16.4.6.tgz#5024957c6bcef4f02823accf5974faba2e54fada"
+  dependencies:
+    csstype "^2.2.0"
+
 "@webassemblyjs/ast@1.5.13":
   version "1.5.13"
   resolved "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.5.13.tgz#81155a570bd5803a30ec31436bc2c9c0ede38f25"
@@ -322,9 +339,28 @@ async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.node-modules.io/tarballs/async/1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
+async@^2.5.0:
+  version "2.6.1"
+  resolved "https://registry.node-modules.io/tarballs/async/2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
+  dependencies:
+    lodash "^4.17.10"
+
 atob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.node-modules.io/tarballs/atob/2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
+
+awesome-typescript-loader@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.node-modules.io/tarballs/awesome-typescript-loader/5.2.0.tgz#d7bccf4823c45096ec24da4c12a1507d276ba15a"
+  dependencies:
+    chalk "^2.4.1"
+    enhanced-resolve "^4.0.0"
+    loader-utils "^1.1.0"
+    lodash "^4.17.5"
+    micromatch "^3.1.9"
+    mkdirp "^0.5.1"
+    source-map-support "^0.5.3"
+    webpack-log "^1.2.0"
 
 babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -1451,6 +1487,10 @@ css-what@2.1:
 cssesc@^0.1.0:
   version "0.1.0"
   resolved "https://registry.node-modules.io/tarballs/cssesc/0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
+
+csstype@^2.2.0:
+  version "2.5.5"
+  resolved "https://registry.node-modules.io/tarballs/csstype/2.5.5.tgz#4125484a3d42189a863943f23b9e4b80fedfa106"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -2925,7 +2965,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.node-modules.io/tarballs/loader-runner/2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@^0.2.16:
+loader-utils@^0.2.16, loader-utils@~0.2.2:
   version "0.2.17"
   resolved "https://registry.node-modules.io/tarballs/loader-utils/0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -2957,7 +2997,7 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.node-modules.io/tarballs/lodash.debounce/4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
-lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.node-modules.io/tarballs/lodash/4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -4322,6 +4362,14 @@ source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.node-modules.io/tarballs/source-list-map/2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
 
+source-map-loader@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.node-modules.io/tarballs/source-map-loader/0.2.3.tgz#d4b0c8cd47d54edce3e6bfa0f523f452b5b0e521"
+  dependencies:
+    async "^2.5.0"
+    loader-utils "~0.2.2"
+    source-map "~0.6.1"
+
 source-map-resolve@^0.5.0:
   version "0.5.2"
   resolved "https://registry.node-modules.io/tarballs/source-map-resolve/0.5.2.tgz#72e2cc34095543e43b2c62b2c4c10d4a9054f259"
@@ -4338,6 +4386,13 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
+source-map-support@^0.5.3:
+  version "0.5.6"
+  resolved "https://registry.node-modules.io/tarballs/source-map-support/0.5.6.tgz#4435cee46b1aab62b8e8610ce60f788091c51c13"
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
 source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.node-modules.io/tarballs/source-map-url/0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
@@ -4346,7 +4401,7 @@ source-map@0.5.x, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.0:
   version "0.5.7"
   resolved "https://registry.node-modules.io/tarballs/source-map/0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
-source-map@^0.6.1, source-map@~0.6.1:
+source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.node-modules.io/tarballs/source-map/0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
@@ -4660,6 +4715,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.node-modules.io/tarballs/typedarray/0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typescript@^2.9.2:
+  version "2.9.2"
+  resolved "https://registry.node-modules.io/tarballs/typescript/2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+
 ua-parser-js@^0.7.18:
   version "0.7.18"
   resolved "https://registry.node-modules.io/tarballs/ua-parser-js/0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
@@ -4898,7 +4957,7 @@ webpack-dev-server@^3.1.4:
     webpack-log "^1.1.2"
     yargs "11.0.0"
 
-webpack-log@^1.0.1, webpack-log@^1.1.2:
+webpack-log@^1.0.1, webpack-log@^1.1.2, webpack-log@^1.2.0:
   version "1.2.0"
   resolved "https://registry.node-modules.io/tarballs/webpack-log/1.2.0.tgz#a4b34cda6b22b518dbb0ab32e567962d5c72a43d"
   dependencies:
