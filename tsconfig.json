@@ -3,9 +3,18 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
+        "module": "esnext",
         "target": "es5",
-        "jsx": "react"
+        "strict": true,
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "jsx": "react",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015.promise",
+            "es2015"
+        ]
     },
     "include": [
         "./src/**/*"

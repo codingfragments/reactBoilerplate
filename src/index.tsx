@@ -1,10 +1,13 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import "./styles/main.css";
-import 'antd/dist/antd.css'
-import {Hello} from "./components/hello";
+// import App from "./components/App";
 
-ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React"/>,
-    document.getElementById("app")
-);
+import * as ES6Promise from "es6-promise";
+// import { AppStart } from "./components/App";
+
+ES6Promise.polyfill();
+
+import( /* webpackChunkName: "mainApp" */ "./components/App").then(App => {
+    App.AppStart();
+});
+import (/* webpackChunkName: "secondApp" */ "./components/App2").then(App => {
+    App.AppStart();
+});

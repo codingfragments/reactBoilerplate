@@ -4,8 +4,8 @@ const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 
 module.exports = (env, options) => {
@@ -26,7 +26,9 @@ module.exports = (env, options) => {
     let webpackConfig = {
         entry: "./src/index.tsx",
         output: {
-            filename: "[name]_[id]_[chunkhash].js",
+            // filename: "[name]_[id]_[chunkhash].js",
+            filename: "[name]_bundle_[chunkhash].js",
+            chunkFilename: "[name]_chunk_[chunkhash].js",
             path: __dirname + "/dist"
         },
 
@@ -41,6 +43,7 @@ module.exports = (env, options) => {
                 // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
                 {
                     test: /\.tsx?$/,
+                    include: path.join(__dirname, "src"),
                     loader: "ts-loader"
                 },
                 {
@@ -72,18 +75,16 @@ module.exports = (env, options) => {
             // "react": "React",
             // "react-dom": "ReactDOM"
         },
+        devServer: {
+            contentBase: "./dist"
+        },
 
         optimization: {
             splitChunks: {
-                cacheGroups: {
-                    commons: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendors',
-                        chunks: 'all'
-                    }
-                },
-                //maxSize: 500000,
-                name: true
+                //maxSize: 50000,
+                name: true,
+                chunks: 'all'
+
             }
         },
         performance: {
@@ -97,13 +98,6 @@ module.exports = (env, options) => {
                 }
         },
         plugins: [
-            // new BundleAnalyzerPlugin({
-            //     analyzerMode: "static",
-            //     reportFilename: "webpackReport.html",
-            //     generateStatsFile: true,
-            //     statsFilename: "webpackBuildStats.json",
-            //     openAnalyzer: false
-            // }),
             new HtmlWebPackPlugin({
                 template: "./src/index.html",
                 filename: "./index.html"
@@ -111,9 +105,12 @@ module.exports = (env, options) => {
 
             new MiniCssExtractPlugin({
                 filename: "[name].css",
-                chunkFilename: "[id].css"
+                chunkFilename: "[name]_chunk.css"
             }),
-            new CleanWebpackPlugin('./dist')
+            // Disable this if using a build cache
+            new CleanWebpackPlugin('./dist'),
+            // Enable this for caching
+            //new HardSourceWebpackPlugin()
         ]
     };
 
