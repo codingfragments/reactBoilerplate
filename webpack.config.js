@@ -58,6 +58,24 @@ module.exports = (env, options) => {
                     test: /\.css$/,
                     use: [MiniCssExtractPlugin.loader, "css-loader"]
                 },
+                {
+                    test: /\.(png|svg|jpg|gif)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name(file) {
+                                    if (!isProduction) {
+                                        return '[path][name].[ext]';
+                                    }
+
+                                    return '[name]_[sha512:hash:base64:7].[ext]';
+                                },
+                                outputPath: 'images/'
+                            }
+                        }
+                    ]
+                },
                 // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
                 {
                     enforce: "pre",

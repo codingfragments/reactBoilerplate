@@ -1,13 +1,23 @@
 // import App from "./components/App";
 
-import * as ES6Promise from "es6-promise";
 // import { AppStart } from "./components/App";
 
-ES6Promise.polyfill();
+import {registerPolyfills} from "./polyfill";
 
-import( /* webpackChunkName: "mainApp" */ "./components/App").then(App => {
-    App.AppStart();
+// Register all important polyfills
+registerPolyfills();
+
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+delay(8000).then(() => {
+    import( /* webpackChunkName: "mainApp" */ "./components/App").then(App => {
+        App.AppStart();
+    });
 });
-import (/* webpackChunkName: "secondApp" */ "./components/App2").then(App => {
-    App.AppStart();
+delay(1000).then(() => {
+    import( /* webpackChunkName: "secondApp" */ "./components/App2").then(App => {
+        App.AppStart();
+    });
 });
