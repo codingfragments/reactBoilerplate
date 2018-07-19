@@ -12,15 +12,14 @@ export class Hello extends React.Component<HelloProps, {}> {
     render() {
         return (
             <>
-            <h1>
-                Hello Man {this.props.compiler} and My{" "}
-                {this.props.framework}!
-
-            </h1>
-            <hr/>
-            <Button type="primary">Click Here </Button>
-            <hr/>
-            <h1> My TEster</h1>
+                <h1>
+                    Hello Man {this.props.compiler} and My{" "}
+                    {this.props.framework}!
+                </h1>
+                <hr />
+                <Button type="primary">Click Here </Button>
+                <hr />
+                <h1> My TEster</h1>
             </>
         );
     }
