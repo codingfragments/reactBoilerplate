@@ -1,27 +1,36 @@
+/* eslint no-console: 0 */
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 
 
 module.exports = (env, options) => {
+
+
+    // Basic Configuration elements !!!
+    // Multi Mode setup happens here
     // Store current mode to enable Setup specific for production !!!
     let isProduction = options.mode === "production";
 
-    if (isProduction) console.log("Webpack in PRODUCTION mode!");
+    // inline-source-map is loaded with JS but slower and bigger files, used for development only !!!
+    let cfgSourceMap = isProduction ? "source-map" : "inline-source-map";
 
-    return {
+
+    if (isProduction) console.log("Webpack in PRODUCTION mode!");
+    console.log('SourceMap := ' + cfgSourceMap);
+
+    let webpackConfig = {
         entry: "./src/index.tsx",
         output: {
-            filename: "[name]_[chunkhash].js",
+            filename: "[name]_[id]_[chunkhash].js",
             path: __dirname + "/dist"
         },
 
-        // Enable sourcemaps for debugging webpack's output.
-        devtool: this.isProduction ? "source-map" : "inline-source-map",
-
+        devtool: cfgSourceMap,
         resolve: {
             // Add '.ts' and '.tsx' as resolvable extensions.
             extensions: [".ts", ".tsx", ".js", ".json"]
@@ -73,26 +82,28 @@ module.exports = (env, options) => {
                         chunks: 'all'
                     }
                 },
-                maxSize: 250000,
+                //maxSize: 500000,
                 name: true
             }
         },
         performance: {
             maxEntrypointSize: 500000,
 
-            assetFilter: function (assetFilename) {
-                // Skip vendors for size warnings.
-                return !assetFilename.startsWith("vendors") && assetFilename.endsWith('.js');
-            }
+            assetFilter:
+
+                function (assetFilename) {
+                    // Skip vendors for size warnings.
+                    return !assetFilename.startsWith("vendors") && assetFilename.endsWith('.js');
+                }
         },
         plugins: [
-            new BundleAnalyzerPlugin({
-                analyzerMode: "static",
-                reportFilename: "webpackReport.html",
-                generateStatsFile: true,
-                statsFilename: "webpackBuildStats.json",
-                openAnalyzer: false
-            }),
+            // new BundleAnalyzerPlugin({
+            //     analyzerMode: "static",
+            //     reportFilename: "webpackReport.html",
+            //     generateStatsFile: true,
+            //     statsFilename: "webpackBuildStats.json",
+            //     openAnalyzer: false
+            // }),
             new HtmlWebPackPlugin({
                 template: "./src/index.html",
                 filename: "./index.html"
@@ -101,7 +112,22 @@ module.exports = (env, options) => {
             new MiniCssExtractPlugin({
                 filename: "[name].css",
                 chunkFilename: "[id].css"
-            })
+            }),
+            new CleanWebpackPlugin('./dist')
         ]
     };
+
+    if (env && env.STATS === 'true') {
+        console.log('Adding Stats to webpack config');
+        webpackConfig.plugins.push(
+            new BundleAnalyzerPlugin({
+                analyzerMode: "static",
+                reportFilename: "webpackReport.html",
+                generateStatsFile: true,
+                statsFilename: "webpackBuildStats.json",
+                openAnalyzer: false
+            }),
+        );
+    }
+    return webpackConfig;
 };

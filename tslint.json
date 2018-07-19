@@ -4,6 +4,11 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
-    "rulesDirectory": []
+    "rules": {
+    },
+    "rulesDirectory": [],
+    "include": [
+        "src/**/*",
+        "node_modules/**/*"
+    ]
 }
