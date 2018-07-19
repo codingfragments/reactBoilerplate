@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = (env, options) => {
@@ -129,6 +130,12 @@ module.exports = (env, options) => {
             new CleanWebpackPlugin('./dist'),
             // Enable this for caching
             //new HardSourceWebpackPlugin()
+            new CopyWebpackPlugin([
+                {
+                    from: 'src/assets/static',
+                    to: 'assets/static'
+                }
+            ])
         ]
     };
 
