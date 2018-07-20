@@ -5,7 +5,6 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
@@ -61,21 +60,19 @@ module.exports = (env, options) => {
                 },
                 {
                     test: /\.(png|svg|jpg|gif)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name(file) {
-                                    if (!isProduction) {
-                                        return '[path][name].[ext]';
-                                    }
+                    use: [{
+                        loader: 'file-loader',
+                        options: {
+                            name(file) {
+                                if (!isProduction) {
+                                    return '[path][name].[ext]';
+                                }
 
-                                    return '[name]_[sha512:hash:base64:7].[ext]';
-                                },
-                                outputPath: 'images/'
-                            }
+                                return '[name]_[sha512:hash:base64:7].[ext]';
+                            },
+                            outputPath: 'images/'
                         }
-                    ]
+                    }]
                 },
                 // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
                 {
@@ -130,12 +127,10 @@ module.exports = (env, options) => {
             new CleanWebpackPlugin('./dist'),
             // Enable this for caching
             //new HardSourceWebpackPlugin()
-            new CopyWebpackPlugin([
-                {
-                    from: 'src/assets/static',
-                    to: 'assets/static'
-                }
-            ])
+            new CopyWebpackPlugin([{
+                from: 'src/assets/static',
+                to: 'assets/static'
+            }])
         ]
     };
 
@@ -148,7 +143,7 @@ module.exports = (env, options) => {
                 generateStatsFile: true,
                 statsFilename: "webpackBuildStats.json",
                 openAnalyzer: false
-            }),
+            })
         );
     }
     return webpackConfig;

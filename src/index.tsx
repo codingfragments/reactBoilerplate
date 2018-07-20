@@ -2,22 +2,20 @@
 
 // import { AppStart } from "./components/App";
 
-import {registerPolyfills} from "./polyfill";
+import { registerPolyfills } from "./polyfill";
 
 // Register all important polyfills
 registerPolyfills();
 
-function delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+let loadMain = import(/* webpackChunkName: "mainApp" */ "./modules/main").then(App => {
+    App.AppStart();
+});
 
-delay(8000).then(() => {
-    import( /* webpackChunkName: "mainApp" */ "./components/App").then(App => {
-        App.AppStart();
-    });
-});
-delay(1000).then(() => {
-    import( /* webpackChunkName: "secondApp" */ "./components/App2").then(App => {
-        App.AppStart();
-    });
-});
+Promise.all([loadMain]).then(loaded => {
+    console.log("Element Loaded")
+}).catch( objectLoaded => {
+    console.error("Error while loading objects")
+})
+
+
+

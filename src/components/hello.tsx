@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button} from "antd";
+import { Button } from "antd";
 
 export interface HelloProps {
     compiler: string;
@@ -17,7 +17,9 @@ export class Hello extends React.Component<HelloProps, {}> {
                     {this.props.framework}!
                 </h1>
                 <hr />
-                <Button type="primary">Click Here </Button>
+                <Button type="default" size="small">
+                    Click Here{" "}
+                </Button>
                 <hr />
                 <h1> My TEster</h1>
             </>
