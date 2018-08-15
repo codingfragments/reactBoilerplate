@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Button } from "antd";
+import { StaticContext } from "../services/basic";
 
 export interface HelloProps {
     compiler: string;
@@ -13,12 +14,12 @@ export class Hello extends React.Component<HelloProps, {}> {
         return (
             <>
                 <h1>
-                    Hello Man {this.props.compiler} and My{" "}
+                    Hello Man {this.props.compiler} and My
                     {this.props.framework}!
                 </h1>
                 <hr />
                 <Button type="default" size="small">
-                    Click Here{" "}
+                    Click Here
                 </Button>
                 <hr />
                 <h1> My TEster</h1>
